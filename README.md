@@ -11,3 +11,27 @@ http://www.piface.org.uk/guides/setting_up_pifacecad/installing_pifacecad_packag
 Python is not my language of choice professionally and the code may not be either elegant nor efficient.
 
 Comments are welcome.
+
+# Getting Started
+
+ I have used a virtual environment to control dependencies, you can do the same as follows:
+
+ To create the virtual Python3 environment:
+
+ $ virtualenv -p python3 venv
+
+To activate it:
+
+ $ . ./venv/bin/activate
+
+Now, when you run Python 3 you are actually running it from within the ./venv/bin/ folder (but you knew that already).
+Your specific dependencies are now controlled for this application alone.
+
+ $ pip install --upgrade pip
+ $ pip install -r requirements.txt
+
+Right now, this just restores the 'Beautiful Soup 4' library that I am using to parse web pages I want data from.
+
+When you are done, run the following to get back to your usual Python3 environment.
+
+ $ ./venv/bin/deactivate
