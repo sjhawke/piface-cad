@@ -2,6 +2,7 @@
 
 
 # . ./venv/bin/activate
+# pip install -r requirements.txt
 # pip freeze > requirements.txt
 # ./venv/bin/deactivate
 
