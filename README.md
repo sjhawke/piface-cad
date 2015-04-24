@@ -28,6 +28,7 @@ Now, when you run Python 3 you are actually running it from within the ./venv/bi
 Your specific dependencies are now controlled for this application alone.
 
  $ pip install --upgrade pip
+ 
  $ pip install -r requirements.txt
 
 Right now, this just restores the 'Beautiful Soup 4' library that I am using to parse web pages I want data from.
