@@ -5,6 +5,9 @@
 # pip freeze > requirements.txt
 # ./venv/bin/deactivate
 
+# http://www.crummy.com/software/BeautifulSoup/bs4/doc/
+# http://kochi-coders.com/2011/05/30/lets-scrape-the-page-using-python-beautifulsoup/
+
 from bs4 import BeautifulSoup
 from urllib import request
 
