@@ -31,7 +31,7 @@ class MyTest(unittest.TestCase):
     def testFivePastTwoAm(self):
         dt = datetime.datetime(2016,2,28,2,5,0)
         self.assertEqual(writethetime.getTimeAsWords(dt), 
-                         "Five Minutes Past Two AM",
+                         "Five Mins Past Two AM",
                          "expect 2:05am")
 
     def testQuarterPastTwoAm(self):
@@ -79,7 +79,7 @@ class MyTest(unittest.TestCase):
     def testTenFourteenPM(self):
         dt = datetime.datetime(2016,2,28,22,14,0)
         self.assertEqual(writethetime.getTimeAsWords(dt), 
-                         "Fourteen Minutes Past Ten PM")
+                         "Fourteen Mins Past Ten PM")
                          
                          
                          

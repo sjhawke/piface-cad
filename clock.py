@@ -56,26 +56,26 @@ def main():
 	# loop
 	stopping = False
 
-		while not stopping:
-			thedate = datetime.datetime.now()
-			clocktime = writethetime.getTimeAsWords(thedate)
-			clocktime_lines = textwrap.wrap(clocktime,width=16)
-			if (len(clocktime_lines) > 1):
-					clocktime = clocktime_lines[0] + '\n' + clocktime_lines[1]
-			else:
-					clocktime = clocktime_lines[0]
-			print (clocktime)
-			if oldclocktime != clocktime:
-				lcd.clear()
-				oldclocktime = clocktime
-				#clockdate = getDisplayDate(thedate)
-				lcd.write(clocktime)
+	while not stopping:
+		thedate = datetime.datetime.now()
+		clocktime = writethetime.getTimeAsWords(thedate)
+		clocktime_lines = textwrap.wrap(clocktime,width=16)
+		if (len(clocktime_lines) > 1):
+				clocktime = clocktime_lines[0] + '\n' + clocktime_lines[1]
+		else:
+				clocktime = clocktime_lines[0]
+		print (clocktime)
+		if oldclocktime != clocktime:
+			lcd.clear()
+			oldclocktime = clocktime
+			#clockdate = getDisplayDate(thedate)
+			lcd.write(clocktime)
 
-			# check for a keypress and exit if a key is pressed
-			if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
-				break
+		# check for a keypress and exit if a key is pressed
+		if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
+			break
 
-			time.sleep(100)
+		time.sleep(100)
 
 	print("terminating")
 	clear(lcd)

@@ -58,17 +58,17 @@ def getTimeAsWords(dateTime):
 				return "Quarter" + " To " + \
 				 "Midnight"
 			else:
-				return str(n2w(60-minute)) + " Minutes To " + \
+				return str(n2w(60-minute)) + " Mins To " + \
 					   "Midnight"
 		else:
 			if (minute == 45):
 				return "Quarter" + " To " + \
 				 str(n2w(get12Hour(hour+1))) + " " + getAmPm(hour+1)
 			# process countdown to the next hour
-			return str(n2w(60-minute)) + " Minutes To " + \
+			return str(n2w(60-minute)) + " Mins To " + \
 				   str(n2w(get12Hour(hour+1))) + " " + getAmPm(hour+1)
 	else:
-		return str(n2w(minute)) + " Minutes Past " + \
+		return str(n2w(minute)) + " Mins Past " + \
 			   str(n2w(get12Hour(hour))) + " " + getAmPm(hour)
 
 
