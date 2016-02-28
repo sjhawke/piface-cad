@@ -13,6 +13,17 @@ lcd = cad.lcd
 
 listener = pifacecad.SwitchEventListener(chip=cad)
 
+
+def getDisplayTime(dateTime):
+	# thedate = datetime.datetime.now()
+	return dateTime.strftime("  [  %H:%M  ]  ")
+	
+
+def getDisplayDate(dateTime):
+	# thedate = datetime.datetime.now()
+	return dateTime.strftime("%a %d-%b-%Y")
+
+
 def init(display):
 	display.clear()
 	display.blink_off()
@@ -46,19 +57,19 @@ def main():
 
 	while not stopping:
 		thedate = datetime.datetime.now()
-		clocktime = thedate.strftime("  [  %H:%M  ]  ")
+		clocktime = getDisplayTime(thedate)
 
 		if oldclocktime != clocktime:
 			lcd.clear()
 			oldclocktime = clocktime
-			clockdate = thedate.strftime("%a %d-%b-%Y")
+			clockdate = getDisplayDate(thedate)
 			lcd.write(clocktime + "\n" + clockdate)
 
 		# check for a keypress and exit if a key is pressed
 		if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
 			break
 
-		time.sleep(1)
+		time.sleep(100)
 
 	print("terminating")
 	clear(lcd)
