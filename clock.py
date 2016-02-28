@@ -7,6 +7,7 @@ import select
 import os
 
 import pifacecad
+from lib import writethetime
 
 cad = pifacecad.PiFaceCAD()
 lcd = cad.lcd
@@ -14,14 +15,14 @@ lcd = cad.lcd
 listener = pifacecad.SwitchEventListener(chip=cad)
 
 
-def getDisplayTime(dateTime):
+#def getDisplayTime(dateTime):
 	# thedate = datetime.datetime.now()
-	return dateTime.strftime("  [  %H:%M  ]  ")
+	#return dateTime.strftime("  [  %H:%M  ]  ")
 	
 
-def getDisplayDate(dateTime):
+#def getDisplayDate(dateTime):
 	# thedate = datetime.datetime.now()
-	return dateTime.strftime("%a %d-%b-%Y")
+	#return dateTime.strftime("%a %d-%b-%Y")
 
 
 def init(display):
@@ -57,13 +58,13 @@ def main():
 
 	while not stopping:
 		thedate = datetime.datetime.now()
-		clocktime = getDisplayTime(thedate)
+		clocktime = writethetime.getTimeAsWords(thedate)
 
 		if oldclocktime != clocktime:
 			lcd.clear()
 			oldclocktime = clocktime
-			clockdate = getDisplayDate(thedate)
-			lcd.write(clocktime + "\n" + clockdate)
+			#clockdate = getDisplayDate(thedate)
+			lcd.write(clocktime)
 
 		# check for a keypress and exit if a key is pressed
 		if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
