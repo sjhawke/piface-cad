@@ -33,6 +33,12 @@ Your specific dependencies are now controlled for this application alone.
 
 Right now, this just restores the 'Beautiful Soup 4' library that I am using to parse web pages I want data from.
 
-When you are done, run the following to get back to your usual Python3 environment.
+To save your libraries if you added more with pip use:
+
+pip freeze > requirements.txt
+
+Then make sure you check in the change!
+
+When you are all done, run the following to get back to your usual global Python3 environment.
 
  $ ./venv/bin/deactivate

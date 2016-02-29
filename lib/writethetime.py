@@ -6,9 +6,9 @@ import datetime
 import sys
 import select
 import os
+import textwrap
 
-
-num2words = {1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', \
+numberHash = {1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', \
 			 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten', \
 			11: 'Eleven', 12: 'Twelve', 13: 'Thirteen', 14: 'Fourteen', \
 			15: 'Fifteen', 16: 'Sixteen', 17: 'Seventeen', 18: 'Eighteen', \
@@ -17,14 +17,25 @@ num2words = {1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', \
 			90: 'Ninety', 0: 'Zero'}
 
 
-def n2w(n):
+def writenumberaswords(number):
 	try:
-		return num2words[n]
+		return numberHash[number]
 	except KeyError:
 		try:
-			return num2words[n-n%10] + "-" + num2words[n%10].lower()
+			return (numberHashnumber[number-number%10] +
+			"-" + numberHash[number%10].lower())
 		except KeyError:
 			return 'Number out of range'
+
+
+def wrap16x2(text):
+	line_length = 16
+	clocktime_lines = textwrap.wrap(text, width = line_length)
+	if (len(clocktime_lines) > 1):
+			clocktime = clocktime_lines[0] + '\n' + clocktime_lines[1]
+	else:
+			clocktime = clocktime_lines[0]
+	return clocktime
 
 def getAmPm(hour):
 	if (hour > 11):
@@ -46,11 +57,11 @@ def getTimeAsWords(dateTime):
 		return "Midday"
 	if (minute == 15):
 		return "Quarter" + " Past " + \
-				str(n2w(get12Hour(hour))) + " " + getAmPm(hour)
+				str(writenumberaswords(get12Hour(hour))) + " " + getAmPm(hour)
 	if (minute == 0):
-		return str(n2w(get12Hour(hour))) + " O'Clock" + " " + getAmPm(hour)
+		return str(writenumberaswords(get12Hour(hour))) + " O'Clock" + " " + getAmPm(hour)
 	if (minute == 30):
-		return "Half" + " Past " + str(n2w(get12Hour(hour))) + \
+		return "Half" + " Past " + str(writenumberaswords(get12Hour(hour))) + \
 			   " " + getAmPm(hour)
 	if (minute > 30):
 		if(hour == 23):
@@ -58,18 +69,18 @@ def getTimeAsWords(dateTime):
 				return "Quarter" + " To " + \
 				 "Midnight"
 			else:
-				return str(n2w(60-minute)) + " Mins To " + \
+				return str(writenumberaswords(60-minute)) + " Mins To " + \
 					   "Midnight"
 		else:
 			if (minute == 45):
 				return "Quarter" + " To " + \
-				 str(n2w(get12Hour(hour+1))) + " " + getAmPm(hour+1)
+				 str(writenumberaswords(get12Hour(hour+1))) + " " + getAmPm(hour+1)
 			# process countdown to the next hour
-			return str(n2w(60-minute)) + " Mins To " + \
-				   str(n2w(get12Hour(hour+1))) + " " + getAmPm(hour+1)
+			return str(writenumberaswords(60-minute)) + " Mins To " + \
+				   str(writenumberaswords(get12Hour(hour+1))) + " " + getAmPm(hour+1)
 	else:
-		return str(n2w(minute)) + " Mins Past " + \
-			   str(n2w(get12Hour(hour))) + " " + getAmPm(hour)
+		return str(writenumberaswords(minute)) + " Mins Past " + \
+			   str(writenumberaswords(get12Hour(hour))) + " " + getAmPm(hour)
 
 
 

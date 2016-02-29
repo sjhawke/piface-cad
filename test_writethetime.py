@@ -10,7 +10,7 @@ import os
 from lib import writethetime
 
 
-class MyTest(unittest.TestCase):
+class TestGetTimeAsWords(unittest.TestCase):
     def testMidnight(self):
         dt = datetime.datetime(2016,2,28,0,0,0)
         self.assertEqual(writethetime.getTimeAsWords(dt), 
@@ -80,8 +80,17 @@ class MyTest(unittest.TestCase):
         dt = datetime.datetime(2016,2,28,22,14,0)
         self.assertEqual(writethetime.getTimeAsWords(dt), 
                          "Fourteen Mins Past Ten PM")
-                         
-                         
-                         
-                         
-                         
+
+class TestWrap16x2(unittest.TestCase):
+    def testTextWrappingTwoLines(self):
+        text = "I am a long string that you must wrap"
+        result = writethetime.wrap16x2(text)
+        #           1234567890123456
+        expected = "I am a long\nstring that you"
+        self.assertEqual(expected, result)
+
+    def testTextWrappingOneLine(self):
+        text = "short string"
+        result = writethetime.wrap16x2(text)
+        expected = "short string"
+        self.assertEqual(expected, result)

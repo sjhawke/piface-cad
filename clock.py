@@ -15,31 +15,25 @@ lcd = cad.lcd
 listener = pifacecad.SwitchEventListener(chip=cad)
 
 
-#def getDisplayTime(dateTime):
-	# thedate = datetime.datetime.now()
-	#return dateTime.strftime("  [  %H:%M  ]  ")
-	
-
-#def getDisplayDate(dateTime):
-	# thedate = datetime.datetime.now()
-	#return dateTime.strftime("%a %d-%b-%Y")
-
-
 def init(display):
 	display.clear()
 	display.blink_off()
 	display.cursor_off()
 	display.backlight_on()
 
+
 def clear(display):
 	display.clear()
 	display.backlight_off()
 
+
 def button_press(event):
 	print (event.pin_num)
 
+
 def unregister_buttons(buttonlistener):
 	buttonlistener.deactivate()
+
 
 def register_buttons(buttonlistener):
 	for i in range(8):
@@ -51,25 +45,20 @@ def main():
 	init(lcd)
 	# register events
 	#register_buttons(listener)
-	# initialise the previous state variable.
-	oldclocktime = ""
-	# loop
+	# initialise the state variable.
+	oldtext = ""
+	
+	# loop forever
 	stopping = False
-
 	while not stopping:
-		thedate = datetime.datetime.now()
-		clocktime = writethetime.getTimeAsWords(thedate)
-		clocktime_lines = textwrap.wrap(clocktime,width=16)
-		if (len(clocktime_lines) > 1):
-				clocktime = clocktime_lines[0] + '\n' + clocktime_lines[1]
-		else:
-				clocktime = clocktime_lines[0]
-		print (clocktime)
-		if oldclocktime != clocktime:
+		datenow = datetime.datetime.now()
+		timeastext = writethetime.getTimeAsWords(datenow)
+		text = writethetime.wrap16x2(timeastext)
+		print (text)
+		if oldtext != text:
 			lcd.clear()
-			oldclocktime = clocktime
-			#clockdate = getDisplayDate(thedate)
-			lcd.write(clocktime)
+			oldtext = text
+			lcd.write(text)
 
 		# check for a keypress and exit if a key is pressed
 		if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
