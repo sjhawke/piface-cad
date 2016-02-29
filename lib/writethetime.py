@@ -22,7 +22,7 @@ def writenumberaswords(number):
 		return numberHash[number]
 	except KeyError:
 		try:
-			return (numberHashnumber[number-number%10] +
+			return (numberHash[number-number%10] +
 			"-" + numberHash[number%10].lower())
 		except KeyError:
 			return 'Number out of range'

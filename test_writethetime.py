@@ -81,6 +81,17 @@ class TestGetTimeAsWords(unittest.TestCase):
         self.assertEqual(writethetime.getTimeAsWords(dt), 
                          "Fourteen Mins Past Ten PM")
 
+
+    def testTenThirtyFivePM(self):
+        dt = datetime.datetime(2016,2,28,22,35,0)
+        self.assertEqual(writethetime.getTimeAsWords(dt), 
+                         "Twenty-five Mins To Eleven PM")
+
+    def testTenThirtyThreePM(self):
+        dt = datetime.datetime(2016,2,28,22,33,0)
+        self.assertEqual(writethetime.getTimeAsWords(dt), 
+                         "Twenty-seven Mins To Eleven PM")
+
 class TestWrap16x2(unittest.TestCase):
     def testTextWrappingTwoLines(self):
         text = "I am a long string that you must wrap"
