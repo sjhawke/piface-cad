@@ -54,17 +54,17 @@ def main():
 		datenow = datetime.datetime.now()
 		timeastext = writethetime.getTimeAsWords(datenow)
 		text = writethetime.wrap16x2(timeastext)
-		print (text)
 		if oldtext != text:
 			lcd.clear()
 			oldtext = text
 			lcd.write(text)
+			print(text)
 
 		# check for a keypress and exit if a key is pressed
 		if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
 			break
 
-		time.sleep(100)
+		time.sleep(10)
 
 	print("terminating")
 	clear(lcd)
