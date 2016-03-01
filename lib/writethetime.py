@@ -14,7 +14,7 @@ numberHash = {1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', \
 			15: 'Fifteen', 16: 'Sixteen', 17: 'Seventeen', 18: 'Eighteen', \
 			19: 'Nineteen', 20: 'Twenty', 30: 'Thirty', 40: 'Forty', \
 			50: 'Fifty', 60: 'Sixty', 70: 'Seventy', 80: 'Eighty', \
-			90: 'Ninety', 0: 'Zero'}
+			90: 'Ninety', 0: 'Twelve'}
 
 
 def writenumberaswords(number):
@@ -37,50 +37,72 @@ def wrap16x2(text):
 			clocktime = clocktime_lines[0]
 	return clocktime
 
-def getAmPm(hour):
+def getAmPm(hour,minute):
+	if (hour==0 and minute<31):
+		return ""
+	if (hour==12 and minute<31):
+		return ""
+	if (hour==23 and minute>30):
+		return ""
+	if (hour==11 and minute >30):
+		return ""
+	if (minute > 30):
+		hour = hour + 1
+	if (hour > 23):
+		return " AM"
 	if (hour > 11):
-		return "PM"
-	return "AM"
+		return " PM"
+	return " AM"
 
-def get12Hour(hour):
+def get12Hour(hour,minute):
+	if(minute > 30):
+		hour = hour + 1
+	if (hour == 0 or hour == 24):
+		return "Midnight"
+	if (hour == 12):
+		return "Midday"
 	if (hour > 12):
-		return hour - 12
-	return hour
-	
+		return writenumberaswords(hour - 12)
+	else:
+		return writenumberaswords(hour)
+
+def getMinuteText(minute):
+	if(minute==15 or minute==45):
+		return "Quarter"
+	if(minute==30):
+		return "Half"
+	if(minute>30):
+		return writenumberaswords(60-minute)
+	else:
+		return writenumberaswords(minute)
+
+def getMinsIndicator(minutes):
+	if (minutes==15 or minutes==30 or minutes==45):
+		return ""
+	if (minutes==1 or minutes==59):
+		return " Min"
+	else:
+		return " Mins"
 
 def getTimeAsWords(dateTime):
 	hour = dateTime.hour
 	minute = dateTime.minute
-	if ((hour == 0) and (minute == 0)):
-		return "Midnight"
-	if ((hour == 12) and (minute == 0)):
-		return "Midday"
-	if (minute == 15):
-		return "Quarter" + " Past " + \
-				str(writenumberaswords(get12Hour(hour))) + " " + getAmPm(hour)
+	
+	hourText   = get12Hour(hour,minute)
+	minuteText = getMinuteText(minute)
+	mins       = getMinsIndicator(minute)
+	ampm       = getAmPm(hour,minute)
+
+	
 	if (minute == 0):
-		return str(writenumberaswords(get12Hour(hour))) + " O'Clock" + " " + getAmPm(hour)
-	if (minute == 30):
-		return "Half" + " Past " + str(writenumberaswords(get12Hour(hour))) + \
-			   " " + getAmPm(hour)
-	if (minute > 30):
-		if(hour == 23):
-			if (minute == 45):
-				return "Quarter" + " To " + \
-				 "Midnight"
-			else:
-				return str(writenumberaswords(60-minute)) + " Mins To " + \
-					   "Midnight"
+		if (hour == 12 or hour == 0):
+			return hourText
 		else:
-			if (minute == 45):
-				return "Quarter" + " To " + \
-				 str(writenumberaswords(get12Hour(hour+1))) + " " + getAmPm(hour+1)
-			# process countdown to the next hour
-			return str(writenumberaswords(60-minute)) + " Mins To " + \
-				   str(writenumberaswords(get12Hour(hour+1))) + " " + getAmPm(hour+1)
+			return hourText + " O'Clock" + ampm
+	if (minute > 30):
+		return minuteText + mins + " To " + hourText + ampm
 	else:
-		return str(writenumberaswords(minute)) + " Mins Past " + \
-			   str(writenumberaswords(get12Hour(hour))) + " " + getAmPm(hour)
+		return minuteText + mins + " Past " + hourText + ampm
 
 
 

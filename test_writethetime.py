@@ -55,7 +55,7 @@ class TestGetTimeAsWords(unittest.TestCase):
     def testHalfPastMidday(self):
         dt = datetime.datetime(2016,2,28,12,30,0)
         self.assertEqual(writethetime.getTimeAsWords(dt), 
-                         "Half Past Twelve PM",
+                         "Half Past Midday",
                          "expect 12:30pm")
                          
     def testTwelveFortyFivePM(self):
@@ -73,7 +73,7 @@ class TestGetTimeAsWords(unittest.TestCase):
     def testElevenFortyFiveAM(self):
         dt = datetime.datetime(2016,2,28,11,45,0)
         self.assertEqual(writethetime.getTimeAsWords(dt), 
-                         "Quarter To Twelve PM",
+                         "Quarter To Midday",
                          "Quarter To 12 AM")
 
     def testTenFourteenPM(self):
@@ -91,6 +91,16 @@ class TestGetTimeAsWords(unittest.TestCase):
         dt = datetime.datetime(2016,2,28,22,33,0)
         self.assertEqual(writethetime.getTimeAsWords(dt), 
                          "Twenty-seven Mins To Eleven PM")
+
+    def testElevenFiftyNinePM(self):
+        dt = datetime.datetime(2016,2,28,23,59,0)
+        self.assertEqual(writethetime.getTimeAsWords(dt), 
+                         "One Min To Midnight")
+                         
+    def testMidnightandOneMin(self):
+        dt = datetime.datetime(2016,2,28,0,1,0)
+        self.assertEqual(writethetime.getTimeAsWords(dt), 
+                         "One Min Past Midnight")
 
 class TestWrap16x2(unittest.TestCase):
     def testTextWrappingTwoLines(self):
