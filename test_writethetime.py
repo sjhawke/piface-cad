@@ -29,7 +29,7 @@ class TestGetTimeAsWords(unittest.TestCase):
     def testFivePastTwoAm(self):
         dt = datetime.datetime(2016,2,28,2,5,0)
         self.assertEqual(writethetime.getTimeAsWords(dt), 
-                         "Five Past Two AM")
+                         "Five Mins Past Two AM")
 
     def testQuarterPastTwoAm(self):
         dt = datetime.datetime(2016,2,28,2,15,0)
@@ -69,13 +69,13 @@ class TestGetTimeAsWords(unittest.TestCase):
     def testTenFourteenPM(self):
         dt = datetime.datetime(2016,2,28,22,14,0)
         self.assertEqual(writethetime.getTimeAsWords(dt), 
-                         "Fourteen Past Ten PM")
+                         "Fourteen Mins Past Ten PM")
 
 
     def testTenThirtyFivePM(self):
         dt = datetime.datetime(2016,2,28,22,35,0)
         self.assertEqual(writethetime.getTimeAsWords(dt), 
-                         "Twenty-five To Eleven PM")
+                         "Twenty-five Mins To Eleven PM")
 
     def testTenThirtyThreePM(self):
         dt = datetime.datetime(2016,2,28,22,33,0)
@@ -85,12 +85,12 @@ class TestGetTimeAsWords(unittest.TestCase):
     def testElevenFiftyNinePM(self):
         dt = datetime.datetime(2016,2,28,23,59,0)
         self.assertEqual(writethetime.getTimeAsWords(dt), 
-                         "One To Midnight")
+                         "One Min To Midnight")
                          
     def testMidnightandOneMin(self):
         dt = datetime.datetime(2016,2,28,0,1,0)
         self.assertEqual(writethetime.getTimeAsWords(dt), 
-                         "One Past Midnight")
+                         "One Min Past Midnight")
     
     def testVeryLongString(self):
         dt = datetime.datetime(2016,2,28,11,27,0)
@@ -119,6 +119,7 @@ class TestWrap16x2(unittest.TestCase):
         self.assertEqual(expected, result)
 
     def testVerifyAllTimes(self):
+        longest = 0
         for hour in range(0,23):
             for minute in range(0,59):
                 dt = datetime.datetime(2016, 2, 28, hour, minute, 0)
@@ -126,7 +127,7 @@ class TestWrap16x2(unittest.TestCase):
                 wrap = writethetime.wrap16x2(wtt)
                 array = re.split('\n', wrap)
                 lines = len(array)
-                self.assertGreaterEqual(2, \
+                self.assertTrue(3 > \
                         lines, \
                         "Count of lines is 3 or more " + \
                                         str(lines) + \
@@ -135,3 +136,7 @@ class TestWrap16x2(unittest.TestCase):
                                         " : " + \
                                         str(minute) + " : " + \
                                         wrap)
+
+
+if __name__ == '__main__':
+    unittest.main()

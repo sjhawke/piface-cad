@@ -91,6 +91,7 @@ def getMinsIndicator(minutes):
         return " Mins"
 
 def getTimeAsWords(dateTime):
+    maxLength = 29 # tuned to ensure that we don't ever wrap to 3 lines
     hour = dateTime.hour
     minute = dateTime.minute
 
@@ -106,11 +107,11 @@ def getTimeAsWords(dateTime):
             return hourText + " O'Clock" + ampm
     if (minute > 30):
         result = minuteText + mins + " To " + hourText + ampm
-        if (len(result) > 16):
+        if (len(result) > maxLength):
             result = minuteText + " To " + hourText + ampm
         return result
     else:
         result = minuteText + mins + " Past " + hourText + ampm
-        if (len(result) > 16):
+        if (len(result) > maxLength):
             result = minuteText + " Past " + hourText + ampm
         return result
