@@ -59,6 +59,7 @@ def main():
 			oldtext = text
 			lcd.write(text)
 			print(text)
+			print("+--------+-----+")
 
 		# check for a keypress and exit if a key is pressed
 		if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
