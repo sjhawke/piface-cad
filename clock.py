@@ -28,7 +28,8 @@ def clear(display):
 
 
 def button_press(event):
-	print (event.pin_num)
+	temp = 1
+	#print (event.pin_num)
 
 
 def unregister_buttons(buttonlistener):
@@ -58,16 +59,16 @@ def main():
 			lcd.clear()
 			oldtext = text
 			lcd.write(text)
-			print(text)
-			print("+--------+-----+")
+			#print(text)
+			#print("+--------+-----+")
 
 		# check for a keypress and exit if a key is pressed
-		if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
-			break
+		#if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
+		#	break
 
 		time.sleep(10)
 
-	print("terminating")
+	#print("terminating")
 	clear(lcd)
 	#unregister_buttons(listener)
 
