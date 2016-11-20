@@ -119,7 +119,6 @@ class TestWrap16x2(unittest.TestCase):
         self.assertEqual(expected, result)
 
     def testVerifyAllTimes(self):
-        longest = 0
         for hour in range(0,24):
             for minute in range(0,60):
                 dt = datetime.datetime(2016, 2, 28, hour, minute, 0)
