@@ -120,11 +120,13 @@ class TestWrap16x2(unittest.TestCase):
 
     def testVerifyAllTimes(self):
         longest = 0
-        for hour in range(0,23):
-            for minute in range(0,59):
+        for hour in range(0,24):
+            for minute in range(0,60):
                 dt = datetime.datetime(2016, 2, 28, hour, minute, 0)
                 wtt = writethetime.getTimeAsWords(dt)
                 wrap = writethetime.wrap16x2(wtt)
+                print(wrap)
+                print("-")
                 array = re.split('\n', wrap)
                 lines = len(array)
                 self.assertTrue(3 > \

@@ -5,6 +5,7 @@ import time
 import sys
 import select
 import os
+import socket
 
 import pifacecad
 from lib import writethetime
@@ -27,6 +28,18 @@ def clear(display):
 	display.backlight_off()
 
 
+def get_ip_address():
+	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+	s.connect(("8.8.8.8", 80))
+	return s.getsockname()[0]
+
+
+def showIpAddress(display):
+	ip = get_ip_address()
+	display.clear()
+	display.write("  IP ADDRESS: \n " + ip)
+	time.sleep(10)
+
 def button_press(event):
 	temp = 1
 	#print (event.pin_num)
@@ -44,6 +57,8 @@ def register_buttons(buttonlistener):
 def main():
 	# reset the screen.
 	init(lcd)
+	# show ip address for a short time for maintenance and support
+	showIpAddress(lcd)
 	# register events
 	#register_buttons(listener)
 	# initialise the state variable.
