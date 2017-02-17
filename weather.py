@@ -19,11 +19,11 @@ page = request.urlopen(url)
 
 soup = BeautifulSoup(page.read())
 
-uvDomSection = soup.findAll('div',{'class' : 'environmental-index uv-index'}) 
+uvDomSection = soup.findAll('div', {'class': 'environmental-index uv-index'})
 
-uv = soup.findAll('span', { 'class' : 'value' })[0].contents[0]
-pollution = soup.findAll('span', { 'class' : 'value' })[1].contents[0]
-pollen = soup.findAll('span', { 'class' : 'value' })[2].contents[0]
+uv = soup.findAll('span', {'class': 'value'})[0].contents[0]
+pollution = soup.findAll('span', {'class': 'value'})[1].contents[0]
+pollen = soup.findAll('span', {'class': 'value'})[2].contents[0]
 
 # [<span class="value">4</span>, <span class="value">Low</span>, <span class="value">High</span>]
 
