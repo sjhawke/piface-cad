@@ -28,22 +28,6 @@ def writenumberaswords(number):
             return 'Number out of range'
 
 
-def wrap16x2(text):
-    line_length = 16
-    clocktime = ""
-    clocktime_lines = textwrap.wrap(text, width=line_length)
-    if (len(clocktime_lines) > 2):
-        clocktime = clocktime_lines[0] + '\n' + \
-                    clocktime_lines[1] + '\n' + \
-                    clocktime_lines[2]
-    elif (len(clocktime_lines) > 1):
-        clocktime = clocktime_lines[0] + '\n' + \
-                    clocktime_lines[1]
-    else:
-        clocktime = clocktime_lines[0]
-    return clocktime
-
-
 def getAmPm(hour, minute):
     amPm = ""
     if hour == 0 and minute < 31:

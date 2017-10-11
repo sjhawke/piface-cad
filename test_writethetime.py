@@ -8,7 +8,7 @@ import select
 import os
 import re
 
-from lib import writethetime
+from lib import writethetime, lcdtextprocessing
 
 
 class TestGetTimeAsWords(unittest.TestCase):
@@ -101,20 +101,20 @@ class TestGetTimeAsWords(unittest.TestCase):
 class TestWrap16x2(unittest.TestCase):
     def testTextWrappingTwoLines(self):
         text = "I am a long string that you must wrap"
-        result = writethetime.wrap16x2(text)
+        result = lcdtextprocessing.wrap16x2(text)
         #           1234567890123456
         expected = "I am a long\nstring that you\nmust wrap"
         self.assertEqual(expected, result)
 
     def testTextWrappingOneLine(self):
         text = "short string"
-        result = writethetime.wrap16x2(text)
+        result = lcdtextprocessing.wrap16x2(text)
         expected = "short string"
         self.assertEqual(expected, result)
 
     def testTextWrappingTwoLinesOverLength(self):
         text = "Twenty-seven Past Eleven AM"
-        result = writethetime.wrap16x2(text)
+        result = lcdtextprocessing.wrap16x2(text)
         #           1234567890123456
         expected = "Twenty-seven\nPast Eleven AM"
         self.assertEqual(expected, result)
@@ -124,7 +124,7 @@ class TestWrap16x2(unittest.TestCase):
             for minute in range(0, 60):
                 dt = datetime.datetime(2016, 2, 28, hour, minute, 0)
                 wtt = writethetime.getTimeAsWords(dt)
-                wrap = writethetime.wrap16x2(wtt)
+                wrap = lcdtextprocessing.wrap16x2(wtt)
                 print(wrap)
                 print("-")
                 array = re.split('\n', wrap)

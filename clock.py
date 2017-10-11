@@ -8,7 +8,7 @@ import os
 import socket
 
 import pifacecad
-from lib import writethetime
+from lib import writethetime, writethedate, lcdtextprocessing
 
 cad = pifacecad.PiFaceCAD()
 lcd = cad.lcd
@@ -72,8 +72,15 @@ def main():
     stopping = False
     while not stopping:
         datenow = datetime.datetime.now()
-        timeastext = writethetime.getTimeAsWords(datenow)
-        text = writethetime.wrap16x2(timeastext)
+
+        if(((datenow.second % 10)) >= 5):
+            # show time
+            rawtext = writethetime.getTimeAsWords(datenow)
+        else:
+            # show date
+            rawtext = writethedate.getDateAsWords(datenow)
+
+        text = lcdtextprocessing.wrap16x2(rawtext)
         if oldtext != text:
             lcd.clear()
             oldtext = text
@@ -85,7 +92,7 @@ def main():
         # if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
         #	break
 
-        time.sleep(10)
+        time.sleep(1)
 
     # print("terminating")
     clear(lcd)
