@@ -58,4 +58,4 @@ def writedayname(dateTime):
 
 def getDateAsWords(dateTime):
     maxLength = 29  # tuned to ensure that we don't ever wrap to 3 lines
-    return writedayname(dateTime) + ' ' + writeshortdayordinalaswords(dateTime.day) + ' of ' + writemonthastext(dateTime.month)
+    return writedayname(dateTime) + ' ' + writeshortdayordinalaswords(dateTime.day) + ' of ' + writemonthastext(dateTime.month) + ' ' + dateTime.strftime('%Y')
