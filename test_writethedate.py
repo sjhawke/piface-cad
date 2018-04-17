@@ -20,8 +20,8 @@ class TestGetTimeAsWords(unittest.TestCase):
         ml = lcdtextprocessing.wrap16x2(text=text)
         self.assertEqual(
                 ml,
-                'Sun 28th of\nFebruary 2016')
-
+                '  Sun 28th of   \n February 2016  ')
+#               '123456789x123456\n123456789x123456'
 
 if __name__ == '__main__':
     unittest.main()

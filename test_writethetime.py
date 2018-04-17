@@ -102,21 +102,22 @@ class TestWrap16x2(unittest.TestCase):
     def testTextWrappingTwoLines(self):
         text = "I am a long string that you must wrap"
         result = lcdtextprocessing.wrap16x2(text)
-        #           1234567890123456
-        expected = "I am a long\nstring that you\nmust wrap"
+        #           1234567890123456xx123456789x123456xx123456789xx123456
+        expected = "  I am a long   \nstring that you \n   must wrap    "
         self.assertEqual(expected, result)
 
     def testTextWrappingOneLine(self):
         text = "short string"
         result = lcdtextprocessing.wrap16x2(text)
-        expected = "short string"
+        #           1234567890123456
+        expected = "  short string  "
         self.assertEqual(expected, result)
 
     def testTextWrappingTwoLinesOverLength(self):
         text = "Twenty-seven Past Eleven AM"
         result = lcdtextprocessing.wrap16x2(text)
-        #           1234567890123456
-        expected = "Twenty-seven\nPast Eleven AM"
+        #           1234567890123456  123456789x123456
+        expected = "  Twenty-seven  \n Past Eleven AM "
         self.assertEqual(expected, result)
 
     def testVerifyAllTimes(self):
