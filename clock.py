@@ -8,7 +8,7 @@ import os
 import socket
 
 import pifacecad
-from lib import writethetime, writethedate, lcdtextprocessing
+from lib import writethetime, writethedate, lcdtextprocessing, writetheweather
 
 cad = pifacecad.PiFaceCAD()
 lcd = cad.lcd
@@ -73,26 +73,38 @@ def main():
     while not stopping:
         datenow = datetime.datetime.now()
 
-        if(((datenow.second % 10)) >= 5):
+        if(datenow.second < 9):
             # show time
             rawtext = writethetime.getTimeAsWords(datenow)
-        else:
+        elif(datenow.second < 19):
             # show date
             rawtext = writethedate.getDateAsWords(datenow)
+        elif(datenow.second < 29):
+            # show weather
+            rawtext = writetheweather.getWeatherAsWords()
+        elif(datenow.second < 39):
+            # show time
+            rawtext = writethetime.getTimeAsWords(datenow)
+        elif(datenow.second < 49):
+            # show date
+            rawtext = writethedate.getDateAsWords(datenow)
+        else:
+            # show weather
+            rawtext = writetheweather.getWeatherAsWords()
 
         text = lcdtextprocessing.wrap16x2(rawtext)
         if oldtext != text:
             lcd.clear()
             oldtext = text
             lcd.write(text)
-        # print(text)
-        # print("+--------+-----+")
+            #print(text)
+            #print("+--------+-----+")
 
         # check for a keypress and exit if a key is pressed
         # if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
         #	break
 
-        time.sleep(1)
+        time.sleep(2)
 
     # print("terminating")
     clear(lcd)
