@@ -8,6 +8,9 @@ This should work out of the box with the latest Raspbian distro, plus the PiFace
 
 http://www.piface.org.uk/guides/setting_up_pifacecad/installing_pifacecad_package/
 
+You will also need to generate and API key for api.openweathermap.org and find their unique number for your town/city.
+Put the key into the key = "" field in the weather.py file and edit the uri to use your location code.
+
 ** Warning ** 
 
 Python is not my language of choice professionally and the code may not be either elegant nor efficient.
