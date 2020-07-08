@@ -8,8 +8,10 @@ This should work out of the box with the latest Raspbian distro, plus the PiFace
 
 http://www.piface.org.uk/guides/setting_up_pifacecad/installing_pifacecad_package/
 
-You will also need to generate and API key for api.openweathermap.org and find their unique number for your town/city.
-Put the key into the key = "" field in the weather.py file and edit the uri to use your location code.
+You will also need to generate and API key for api.openweathermap.org and find their unique number for your town/city,
+plus the latitude and longitude for your location. These are needed for weather outlook and UV index requests.
+Put the details in the startclock.sh file environment vars and run that to ensure the lib/writetheweather.py file has
+the values it requires.
 
 ** Warning ** 
 
