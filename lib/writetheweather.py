@@ -14,6 +14,7 @@ def getWeatherAsWords():
     lon = str(os.environ.get('lon'))
 
     uri = "https://api.openweathermap.org/data/2.5/weather?id=" + locid  + "&units=metric&APPID=" + appid
+    print(uri)
     weather = "no weather data"
     try:
         r = requests.get(uri, timeout=5)
@@ -28,6 +29,7 @@ def getWeatherAsWords():
             weather = str(temp) + "C, "  + str(main['humidity'])  + "%Hu, " + outlook
 
         uv_uri = "https://api.openweathermap.org/data/2.5/uvi?lon=" + lon  + "&lat=" + lat + "&APPID=" + appid
+        print(uv_uri)
         uvreq = requests.get(uv_uri, timeout=5)
         if uvreq.status_code == 200:
             body = uvreq.json()
