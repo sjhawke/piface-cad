@@ -14,6 +14,12 @@ class TestGetTimeAsWords(unittest.TestCase):
                 'Sun 28th of February 2016')
 
 
+    def testMidnightAndOneMinute(self):
+        dt = datetime.datetime(2019, 6, 27, 0, 1, 0)
+        self.assertEqual(
+                     writethedate.getDateAsWords(dt),
+                     'Thu 27th of June 2019')
+
     def testMultiLineDate(self):
         dt = datetime.datetime(2016, 2, 28, 0, 0, 0)
         text = writethedate.getDateAsWords(dt)

@@ -72,7 +72,7 @@ def main():
     stopping = False
     while not stopping:
         datenow = datetime.datetime.now()
-
+        
         if(datenow.second < 9):
             # show time
             rawtext = writethetime.getTimeAsWords(datenow)
@@ -104,7 +104,7 @@ def main():
         # if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
         #	break
 
-        time.sleep(2)
+        time.sleep(5)
 
     # print("terminating")
     clear(lcd)
