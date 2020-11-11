@@ -37,13 +37,13 @@ def getWeatherAsWords():
             uvindex = ''
             if(uv>8.0):
                 uvindex = 'VH'
-            elif(uv>5):
+            elif(uv>5.0):
                 uvindex = "H" 
             elif(uv>2.0):
                 uvindex = "M"
             else:
                 uvindex = "L"
-        weather = str(temp) + "C "  + str(main['humidity'])  + "%Hu " + "uv" + uvindex + " " + outlook
+        weather = str(temp) + "C "  + str(main['humidity'])  + "%Hu " + "UV:" + uvindex + "\n" + outlook
     except:
         pass
         # we swallow all communication errors
