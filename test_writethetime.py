@@ -126,8 +126,9 @@ class TestWrap16x2(unittest.TestCase):
                 dt = datetime.datetime(2016, 2, 28, hour, minute, 0)
                 wtt = writethetime.getTimeAsWords(dt)
                 wrap = lcdtextprocessing.wrap16x2(wtt)
-                print(wrap)
-                print("-")
+                if "DEBUG" in os.environ:
+                    print(wrap)
+                    print("-")
                 array = re.split('\n', wrap)
                 lines = len(array)
                 self.assertTrue(3 >
