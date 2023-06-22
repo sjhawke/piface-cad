@@ -8,7 +8,10 @@ import os
 import socket
 
 import pifacecad
-from lib import writethetime, writethedate, lcdtextprocessing, writetheweather
+import lib.writethetime as writethetime
+import lib.writethedate as writethedate
+import lib.lcdtextprocessing as lcdtextprocessing
+import lib.writetheweather as writetheweather
 
 cad = pifacecad.PiFaceCAD()
 lcd = cad.lcd
