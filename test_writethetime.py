@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 
 import unittest
-import time
 import datetime
-import sys
-import select
 import os
 import re
 

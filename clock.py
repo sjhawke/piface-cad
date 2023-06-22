@@ -2,9 +2,6 @@
 
 import datetime
 import time
-import sys
-import select
-import os
 import socket
 
 import pifacecad
@@ -43,31 +40,12 @@ def showIpAddress(display):
     display.write("  IP ADDRESS: \n " + ip)
     time.sleep(10)
 
-
-def button_press(event):
-    temp = 1
-
-
-# print (event.pin_num)
-
-
-def unregister_buttons(buttonlistener):
-    buttonlistener.deactivate()
-
-
-def register_buttons(buttonlistener):
-    for i in range(8):
-        buttonlistener.register(i, pifacecad.IODIR_FALLING_EDGE, button_press)
-    buttonlistener.activate()
-
-
 def main():
     # reset the screen.
     init(lcd)
     # show ip address for a short time for maintenance and support
     showIpAddress(lcd)
     # register events
-    # register_buttons(listener)
     # initialise the state variable.
     oldtext = ""
 
