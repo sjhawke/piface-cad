@@ -9,6 +9,9 @@ jobs:
       - run:
           name: Restore, Test and Lint
           command: |
+            cd .
+            pwd
+            ls
             python3 -m venv venv
             . ./venv/bin/activate
             pip install --upgrade pip
