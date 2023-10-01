@@ -4,6 +4,8 @@ jobs:
     docker:
       - image: cimg/python:3.10
     steps:
+      - checkout
+      
       - run:
           name: Restore, Test and Lint
           command: |
