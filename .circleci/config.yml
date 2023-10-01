@@ -2,10 +2,14 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: ubuntu:latest
+      - image: cimg/python:3.10
     steps:
       - run:
-          name: The First Step
+          name: Restore, Test and Lint
           command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
+            python3 -m venv venv
+            . ./venv/bin/activate
+            pip install -r requirements.txt
+            pytest
+            pip install pylint
+            pylint *.py
