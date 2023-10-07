@@ -2,7 +2,7 @@
 
 My mucking around area with code to work with the PiFace Control and Display modules on the Raspberry Pi Model B.
 
- ![Pi Clock Photo](https://github.com/sjhawke/piface-cad/blob/main/pi-clock.PNG))
+ ![Pi Clock Photo](https://github.com/sjhawke/piface-cad/blob/main/pi-clock.PNG)
 
 This should work out of the box with the latest Raspbian distro, plus the PiFace CAD tools from here:
 
