@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
+"""
+Clock - main program for managing the Clock Display via the PiFaceCAD library.
+"""
 
 import datetime
 import time
 import socket
 
-import pifacecad
-import lib.writethetime as writethetime
-import lib.writethedate as writethedate
-import lib.lcdtextprocessing as lcdtextprocessing
-import lib.writetheweather as writetheweather
+import pifacecad                                      # pylint: disable=E0401
+import lib.writethetime as writethetime               # pylint: disable=R0402
+import lib.writethedate as writethedate               # pylint: disable=R0402
+import lib.lcdtextprocessing as lcdtextprocessing     # pylint: disable=R0402
+import lib.writetheweather as writetheweather         # pylint: disable=R0402
 
 cad = pifacecad.PiFaceCAD()
 lcd = cad.lcd
@@ -17,6 +20,9 @@ listener = pifacecad.SwitchEventListener(chip=cad)
 
 
 def init(display):
+    """
+    Clear and initialise the display.
+    """
     display.clear()
     display.blink_off()
     display.cursor_off()
@@ -24,59 +30,71 @@ def init(display):
 
 
 def clear(display):
+    """
+    Wipe the display.
+    """
     display.clear()
     display.backlight_off()
 
 
 def get_ip_address():
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("8.8.8.8", 80))
-    return s.getsockname()[0]
+    """
+    Get IP Address of the Pi.
+    """
+    ip_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    ip_socket.connect(("8.8.8.8", 80))
+    return ip_socket.getsockname()[0]
 
 
-def showIpAddress(display):
-    ip = get_ip_address()
+def show_ip_address(display):
+    """
+    Show the IP Address of the Pi on the display.
+    """
+    my_ip_address = get_ip_address()
     display.clear()
-    display.write("  IP ADDRESS: \n " + ip)
+    display.write("  IP ADDRESS: \n " + my_ip_address)
     time.sleep(10)
 
 def main():
+    """
+    Entry point. Run the app with the main loop.
+    """
     # reset the screen.
     init(lcd)
     # show ip address for a short time for maintenance and support
-    showIpAddress(lcd)
+    show_ip_address(lcd)
     # register events
     # initialise the state variable.
-    oldtext = ""
+    old_text = ""
 
     # loop forever
     stopping = False
     while not stopping:
-        datenow = datetime.datetime.now()
-        
-        if(datenow.second < 9):
+        date_now = datetime.datetime.now()
+
+        if date_now.second < 9:
             # show time
-            rawtext = writethetime.getTimeAsWords(datenow)
-        elif(datenow.second < 19):
+            raw_text = writethetime.get_time_as_words(date_now)
+        elif date_now.second < 19:
             # show date
-            rawtext = writethedate.getDateAsWords(datenow)
-        elif(datenow.second < 29):
+            raw_text = writethedate.get_date_as_words(date_now)
+        elif date_now.second < 29:
             # show weather
-            rawtext = writetheweather.getWeatherAsWords()
-        elif(datenow.second < 39):
+            raw_text = writetheweather.get_weather_as_words()
+        elif date_now.second < 39:
             # show time
-            rawtext = writethetime.getTimeAsWords(datenow)
-        elif(datenow.second < 49):
+            raw_text = writethetime.get_time_as_words(date_now)
+        elif date_now.second < 49:
             # show date
-            rawtext = writethedate.getDateAsWords(datenow)
+            raw_text = writethedate.get_date_as_words(date_now)
         else:
             # show weather
-            rawtext = writetheweather.getWeatherAsWords()
+            raw_text = writetheweather.get_weather_as_words()
 
-        text = lcdtextprocessing.wrap16x2(rawtext)
-        if oldtext != text:
+        text = lcdtextprocessing.wrap_16_x_2(raw_text)
+        if old_text != text:
             lcd.clear()
-            oldtext = text
+            old_text = text
             lcd.write(text)
             #print(text)
             #print("+--------+-----+")

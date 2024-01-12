@@ -16,6 +16,7 @@ jobs:
             . ./venv/bin/activate
             pip install --upgrade pip
             pip install -r requirements.txt
+            export PYTHONPATH=$(pwd)
             pytest
             pip install pylint
-            pylint *.py
+            pylint -j 8 --recursive=y ./lib/ clock.py

@@ -5,4 +5,5 @@ py==1.10.0
 pyparsing==2.1.10
 pytest==7.4.2
 six==1.10.0
+requests==2.31.0
 setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
