@@ -7,11 +7,11 @@ import datetime
 import time
 import socket
 
-import pifacecad                                      # pylint: disable=E0401
-import lib.writethetime as writethetime               # pylint: disable=R0402
-import lib.writethedate as writethedate               # pylint: disable=R0402
-import lib.lcdtextprocessing as lcdtextprocessing     # pylint: disable=R0402
-import lib.writetheweather as writetheweather         # pylint: disable=R0402
+import pifacecad  # pylint: disable=E0401
+import lib.writethetime as writethetime  # pylint: disable=R0402
+import lib.writethedate as writethedate  # pylint: disable=R0402
+import lib.lcdtextprocessing as lcdtextprocessing  # pylint: disable=R0402
+import lib.writetheweather as writetheweather  # pylint: disable=R0402
 
 cad = pifacecad.PiFaceCAD()
 lcd = cad.lcd
@@ -55,6 +55,7 @@ def show_ip_address(display):
     display.write("  IP ADDRESS: \n " + my_ip_address)
     time.sleep(10)
 
+
 def main():
     """
     Entry point. Run the app with the main loop.
@@ -96,12 +97,12 @@ def main():
             lcd.clear()
             old_text = text
             lcd.write(text)
-            #print(text)
-            #print("+--------+-----+")
+            # print(text)
+            # print("+--------+-----+")
 
         # check for a keypress and exit if a key is pressed
         # if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
-        #	break
+        # break
 
         time.sleep(5)
 
