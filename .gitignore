@@ -21,6 +21,7 @@ sdist/
 var/
 venv/
 venv3/
+venv-tools/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -59,3 +60,5 @@ docs/_build/
 target/
 .vs/
 
+# ignore specified local files and scripts
+*.local.*
