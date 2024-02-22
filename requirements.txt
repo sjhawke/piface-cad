@@ -1,7 +1,7 @@
 appdirs==1.4.0
 beautifulsoup4==4.12.2
 packaging==16.8
-py==1.10.0
+py==1.11.0
 pyparsing==2.1.10
 pytest==7.4.2
 six==1.10.0
