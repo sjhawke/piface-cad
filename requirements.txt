@@ -1,8 +1,9 @@
 appdirs==1.4.0
 beautifulsoup4==4.12.2
-packaging==16.8
-py==1.10.0
+packaging==23.2
+py==1.11.0
 pyparsing==2.1.10
 pytest==7.4.2
 six==1.16.0
+requests==2.31.0
 setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
