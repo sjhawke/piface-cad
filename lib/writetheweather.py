@@ -37,11 +37,11 @@ def get_weather_as_words():
         uv_uri = ("https://api.openweathermap.org/data/2.5/uvi?lon="
                   + lon  + "&lat=" + lat + "&APPID=" + appid)
         # print(uv_uri)
+        uvindex = ''
         uvreq = requests.get(uv_uri, timeout=5)
         if uvreq.status_code == 200:
             body = uvreq.json()
             uv_level = body['value']
-            uvindex = ''
             if uv_level>8.0:
                 uvindex = 'VH'
             elif uv_level>5.0:
