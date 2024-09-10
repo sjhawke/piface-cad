@@ -19,13 +19,21 @@ Python is not my language of choice professionally and the code may not be eithe
 
 Comments are welcome.
 
-# Getting Started
+## Raspbian Note
+
+This was originally built on the original distro that came with the Raspberry Pi Model B v1. 
+It has since been updated after upgrading the operating system on my Pi to Debian (Raspbian) Bullseye. 
+
+On newer versions of Raspbian the PiFace libraries are no longer part of the distribution, so you
+will need to build them yourself from source. See [here](https://github.com/piface/pifacecad?tab=readme-ov-file#install-on-raspbian-strech-and-raspberrypi-3) for instructions.
+
+## Getting Started
 
  I have used a virtual environment to control dependencies, you can do the same as follows:
 
  To create the virtual Python3 environment:
 ```
- $ python -m venv venv
+ $ python3 -m venv venv
 ```
 To activate it:
 ```
