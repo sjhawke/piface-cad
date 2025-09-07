@@ -3,7 +3,7 @@ beautifulsoup4==4.13.5
 packaging>=23.2
 py==1.11.0
 pyparsing==3.2.3
-requests==2.32.4
+requests==2.32.5
 pytest==8.4.1
 setuptools==65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
 six==1.17.0
