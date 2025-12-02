@@ -1,5 +1,5 @@
 appdirs==1.4.0
-beautifulsoup4==4.13.5
+beautifulsoup4==4.14.3
 packaging>=23.2
 py==1.11.0
 pyparsing==3.2.5
