@@ -1,0 +1,29 @@
+name: Run tests on Raspberry Pi
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-on-pi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start ssh-agent and add private key
+        uses: webfactory/ssh-agent@v0.8.1
+        with:
+          ssh-private-key: ${{ secrets.RPI_SSH_PRIVATE_KEY }}
+
+      - name: Run tests remotely on Raspberry Pi
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.RPI_SSH_HOST }}
+          username: ${{ secrets.RPI_SSH_USER }}
+          port: 22
+          script: |
+            set -e
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install --upgrade pip
+            pip install -r requirements.txt
+            pytest
