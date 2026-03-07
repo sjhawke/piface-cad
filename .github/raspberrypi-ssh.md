@@ -3,25 +3,25 @@ Raspberry Pi SSH MCP server
 This file documents the `raspberrypi-ssh` MCP server configuration for this repository and how to provide credentials safely.
 
 Host and user to use for this project (provided by you):
-- Host: 192.168.1.88
-- User: pi
+- Host: 192.168.xxx.xxx
+- User: user
 
 Recommended secrets to create in GitHub repository settings (Settings → Secrets and variables → Actions):
 - RPI_SSH_PRIVATE_KEY — the private SSH key (contents of ~/.ssh/id_ed25519). Mark as secret.
-- RPI_SSH_HOST — hostname or IP (optional; can be set to 192.168.1.88).
-- RPI_SSH_USER — SSH user (optional; set to `pi`).
+- RPI_SSH_HOST — hostname or IP (optional; can be set to 192.168.xxx.xxx).
+- RPI_SSH_USER — SSH user (optional; set to `user`).
 
 Local development using a .env file (recommended for local runs, not CI):
 - Create a file named `.env` in your local clone and add the variables you need (example below). Add `.env` to your local `~/.gitignore_global` or the repo `.gitignore` so it is never committed.
 
 Example .env for password-based auth:
-RPI_SSH_HOST=192.168.1.88
-RPI_SSH_USER=pi
+RPI_SSH_HOST=192.168.xxx.xxx
+RPI_SSH_USER=user
 RPI_SSH_PASSWORD=your_pi_password
 
 Example .env for key-based auth (preferred):
-RPI_SSH_HOST=192.168.1.88
-RPI_SSH_USER=pi
+RPI_SSH_HOST=192.168.xxx.xxx
+RPI_SSH_USER=user
 # do NOT paste the private key value; instead point to the private key file
 RPI_SSH_PRIVATE_KEY_PATH=$HOME/.ssh/id_ed25519
 
@@ -37,9 +37,9 @@ Recommended steps:
 1. Generate an SSH key pair locally (ed25519 recommended):
    ssh-keygen -t ed25519 -C "your_email@example.com"
 2. Copy the public key to the Pi:
-   ssh-copy-id -i ~/.ssh/id_ed25519.pub pi@192.168.1.88
+   ssh-copy-id -i ~/.ssh/id_ed25519.pub user@192.168.xxx.xxx
 3. Verify you can SSH without a password:
-   ssh pi@192.168.1.88
+   ssh user@192.168.xxx.xxx
 4. Paste the private key into RPI_SSH_PRIVATE_KEY in GitHub Secrets (do not commit it into the repo).
 
 Sample GitHub Actions workflow (see .github/workflows/raspberrypi-ssh.yml) will use the private key to run commands on the Pi for hardware-in-the-loop testing or to run pytest on device.
