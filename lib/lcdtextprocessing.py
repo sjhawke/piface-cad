@@ -9,14 +9,9 @@ import textwrap
 def wrap_16_x_2(text):
     """
     Wrap text to 16x2 LCD display
-    
-    # left filling 
-    print(f'{"geeks" :*>15}') 
-    
-    # right filling 
-    print(f'{"geeks" :*<15}') 
-
     """
+    if not text:
+        return ' ' * 16
     line_length = 16
     datetext = ""
     datetext_lines = textwrap.wrap(text, width=line_length)

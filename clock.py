@@ -8,7 +8,11 @@ import datetime
 import time
 import socket
 
-import pifacecad  # pylint: disable=E0401
+try:
+    import pifacecad  # pylint: disable=E0401
+except ImportError:
+    import lib.pifacecad_mock as pifacecad  # pylint: disable=R0402
+
 import lib.writethetime as writethetime  # pylint: disable=R0402
 import lib.writethedate as writethedate  # pylint: disable=R0402
 import lib.lcdtextprocessing as lcdtextprocessing  # pylint: disable=R0402
@@ -43,15 +47,21 @@ def get_ip_address():
     Get IP Address of the Pi.
     """
     ip_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    ip_socket.connect(("8.8.8.8", 80))
-    return ip_socket.getsockname()[0]
+    try:
+        ip_socket.connect(("8.8.8.8", 80))
+        return ip_socket.getsockname()[0]
+    finally:
+        ip_socket.close()
 
 
 def show_ip_address(display):
     """
     Show the IP Address of the Pi on the display.
     """
-    my_ip_address = get_ip_address()
+    try:
+        my_ip_address = get_ip_address()
+    except OSError:
+        my_ip_address = "unavailable"
     display.clear()
     display.write("  IP ADDRESS: \n " + my_ip_address)
     time.sleep(10)
@@ -65,13 +75,11 @@ def main():
     init(lcd)
     # show ip address for a short time for maintenance and support
     show_ip_address(lcd)
-    # register events
     # initialise the state variable.
     old_text = ""
 
     # loop forever
-    stopping = False
-    while not stopping:
+    while True:
         date_now = datetime.datetime.now()
 
         if date_now.second < 9:
@@ -98,20 +106,10 @@ def main():
             lcd.clear()
             old_text = text
             lcd.write(text)
-            # print(text)
-            # print("+--------+-----+")
-
-        # check for a keypress and exit if a key is pressed
-        # if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
-        # break
 
         time.sleep(5)
 
-    # print("terminating")
     clear(lcd)
-
-
-# unregister_buttons(listener)
 
 if __name__ == "__main__":
     main()
