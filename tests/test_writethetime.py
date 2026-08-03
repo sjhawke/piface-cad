@@ -101,6 +101,9 @@ class Testwrap_16_x_2(unittest.TestCase):
         expected = "  short string  "
         self.assertEqual(expected, result)
 
+    def testEmptyText(self):
+        self.assertEqual(lcdtextprocessing.wrap_16_x_2(""), " " * 16)
+
     def testTextWrappingTwoLinesOverLength(self):
         text = "Twenty-seven Past Eleven AM"
         result = lcdtextprocessing.wrap_16_x_2(text)

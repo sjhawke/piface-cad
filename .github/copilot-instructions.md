@@ -36,18 +36,18 @@ cp startclock-template.sh startclock.sh
 
 ## Architecture
 
-- **`clock.py`** — main loop. Runs only on a real Pi (imports `pifacecad` hardware library). Rotates display content based on `datetime.second`: time (0–9s), date (10–18s), weather (19–28s), then repeats.
+- **`clock.py`** — main loop. Attempts to import the `pifacecad` hardware library and falls back to `lib.pifacecad_mock` when unavailable. Rotates display content based on `datetime.second`: time (0–9s), date (10–18s), weather (19–28s), then repeats.
 - **`lib/writethetime.py`** — converts a `datetime` to a natural-English phrase ("Quarter Past Two AM").
 - **`lib/writethedate.py`** — converts a `datetime` to a display string ("Sun 28th of February 2016").
 - **`lib/writetheweather.py`** — fetches current weather + UV index from OpenWeatherMap (two API calls). Returns a formatted string ≤ 32 chars for the LCD.
-- **`lib/lcdtextprocessing.py`** — `wrap_16_x_2(text)` wraps and **center-aligns** text into a 16-char-wide, 2-line string with `\n` separator.
+- **`lib/lcdtextprocessing.py`** — `wrap_16_x_2(text)` wraps and **center-aligns** text into lines of up to 16 characters, returning 1–3 `\n`-separated lines for display and related tests.
 - **`lib/display.py`** — additional display helpers.
 
 ## Key Conventions
 
-**`pifacecad` is hardware-only.** It is not in `requirements.txt` and is not available in the venv or CI. `clock.py` has `# pylint: disable=E0401` on that import. Never import `pifacecad` in `lib/` modules — all `lib/` code must be testable without hardware.
+**`pifacecad` is hardware-only.** It is not in `requirements.txt` and is not available in the venv or CI. `clock.py` has `# pylint: disable=E0401` on that import and falls back to `lib.pifacecad_mock` when the hardware library is missing. Never import `pifacecad` in `lib/` modules — all `lib/` code must be testable without hardware.
 
-**LCD output is always 16×2.** Any string written to the LCD must pass through `lcdtextprocessing.wrap_16_x_2()`. Tests in `test_writethetime.py::Testwrap_16_x_2::testVerifyAllTimes` assert that every possible time string fits in two lines.
+**LCD output targets a 16×2 display.** Any string intended for the LCD must pass through `lcdtextprocessing.wrap_16_x_2()`, which keeps each line to 16 characters and returns 1–3 `\n`-separated lines. Tests in `test_writethetime.py::Testwrap_16_x_2::testVerifyAllTimes` assert that every possible time string stays within those constraints.
 
 **Weather config via environment variables.** `writetheweather.py` reads `apikey`, `locationkey`, `lat`, and `lon` from `os.environ`. These are never hardcoded; set them in `startclock.sh` (which is gitignored — use `startclock-template.sh` as the template).
 
@@ -63,4 +63,3 @@ If you want Copilot sessions to use MCP servers for remote testing or hardware a
 - `ssh-runner` — a generic SSH runner that can run tests on an environment matching the Pi (if you can provide an image or credentials).
 
 Tell me which MCP server to add and provide any hostnames/credentials (or say "none"). I will add the appropriate configuration files and CI integration on the branch.
-

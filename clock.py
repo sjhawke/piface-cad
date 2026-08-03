@@ -63,7 +63,8 @@ def show_ip_address(display):
     except OSError:
         my_ip_address = "unavailable"
     display.clear()
-    display.write("  IP ADDRESS: \n " + my_ip_address)
+    raw_text = "  IP ADDRESS: \n " + my_ip_address
+    display.write(lcdtextprocessing.wrap_16_x_2(raw_text))
     time.sleep(10)
 
 
@@ -108,8 +109,6 @@ def main():
             lcd.write(text)
 
         time.sleep(5)
-
-    clear(lcd)
 
 if __name__ == "__main__":
     main()
