@@ -1,86 +1,84 @@
-#!/usr/bin/env python3
-
-import unittest
 import datetime
 import os
 import re
+import unittest
 
-from lib import writethetime, lcdtextprocessing
+from lib import lcdtextprocessing, writethetime
 
 
 class TestGetTimeAsWords(unittest.TestCase):
     def testMidnight(self):
-        dt = datetime.datetime(2016, 2, 28, 0, 0, 0)
+        dt = datetime.datetime(2016, 2, 28, 0, 0, 0, tzinfo=datetime.timezone.utc)
         self.assertEqual(writethetime.get_time_as_words(dt), "Midnight")
 
     def testOneAm(self):
-        dt = datetime.datetime(2016, 2, 28, 1, 0, 0)
+        dt = datetime.datetime(2016, 2, 28, 1, 0, 0, tzinfo=datetime.timezone.utc)
         self.assertEqual(writethetime.get_time_as_words(dt), "One O'Clock AM")
 
     def testTwoAm(self):
-        dt = datetime.datetime(2016, 2, 28, 2, 0, 0)
+        dt = datetime.datetime(2016, 2, 28, 2, 0, 0, tzinfo=datetime.timezone.utc)
         self.assertEqual(writethetime.get_time_as_words(dt), "Two O'Clock AM")
 
     def testFivePastTwoAm(self):
-        dt = datetime.datetime(2016, 2, 28, 2, 5, 0)
+        dt = datetime.datetime(2016, 2, 28, 2, 5, 0, tzinfo=datetime.timezone.utc)
         self.assertEqual(writethetime.get_time_as_words(dt), "Five Mins Past Two AM")
 
     def testQuarterPastTwoAm(self):
-        dt = datetime.datetime(2016, 2, 28, 2, 15, 0)
+        dt = datetime.datetime(2016, 2, 28, 2, 15, 0, tzinfo=datetime.timezone.utc)
         self.assertEqual(writethetime.get_time_as_words(dt), "Quarter Past Two AM")
 
     def testMidday(self):
-        dt = datetime.datetime(2016, 2, 28, 12, 0, 0)
+        dt = datetime.datetime(2016, 2, 28, 12, 0, 0, tzinfo=datetime.timezone.utc)
         self.assertEqual(writethetime.get_time_as_words(dt), "Midday")
 
     def testHalfPastTwoPm(self):
-        dt = datetime.datetime(2016, 2, 28, 14, 30, 0)
+        dt = datetime.datetime(2016, 2, 28, 14, 30, 0, tzinfo=datetime.timezone.utc)
         self.assertEqual(writethetime.get_time_as_words(dt), "Half Past Two PM")
 
     def testHalfPastMidday(self):
-        dt = datetime.datetime(2016, 2, 28, 12, 30, 0)
+        dt = datetime.datetime(2016, 2, 28, 12, 30, 0, tzinfo=datetime.timezone.utc)
         self.assertEqual(writethetime.get_time_as_words(dt), "Half Past Midday")
 
     def testTwelveFortyFivePM(self):
-        dt = datetime.datetime(2016, 2, 28, 12, 45, 0)
+        dt = datetime.datetime(2016, 2, 28, 12, 45, 0, tzinfo=datetime.timezone.utc)
         self.assertEqual(writethetime.get_time_as_words(dt), "Quarter To One PM")
 
     def testElevenFortyFivePM(self):
-        dt = datetime.datetime(2016, 2, 28, 23, 45, 0)
+        dt = datetime.datetime(2016, 2, 28, 23, 45, 0, tzinfo=datetime.timezone.utc)
         self.assertEqual(writethetime.get_time_as_words(dt), "Quarter To Midnight")
 
     def testElevenFortyFiveAM(self):
-        dt = datetime.datetime(2016, 2, 28, 11, 45, 0)
+        dt = datetime.datetime(2016, 2, 28, 11, 45, 0, tzinfo=datetime.timezone.utc)
         self.assertEqual(writethetime.get_time_as_words(dt), "Quarter To Midday")
 
     def testTenFourteenPM(self):
-        dt = datetime.datetime(2016, 2, 28, 22, 14, 0)
+        dt = datetime.datetime(2016, 2, 28, 22, 14, 0, tzinfo=datetime.timezone.utc)
         self.assertEqual(
             writethetime.get_time_as_words(dt), "Fourteen Mins Past Ten PM"
         )
 
     def testTenThirtyFivePM(self):
-        dt = datetime.datetime(2016, 2, 28, 22, 35, 0)
+        dt = datetime.datetime(2016, 2, 28, 22, 35, 0, tzinfo=datetime.timezone.utc)
         self.assertEqual(
             writethetime.get_time_as_words(dt), "Twenty-five Mins To Eleven PM"
         )
 
     def testTenThirtyThreePM(self):
-        dt = datetime.datetime(2016, 2, 28, 22, 33, 0)
+        dt = datetime.datetime(2016, 2, 28, 22, 33, 0, tzinfo=datetime.timezone.utc)
         self.assertEqual(
             writethetime.get_time_as_words(dt), "Twenty-seven To Eleven PM"
         )
 
     def testElevenFiftyNinePM(self):
-        dt = datetime.datetime(2016, 2, 28, 23, 59, 0)
+        dt = datetime.datetime(2016, 2, 28, 23, 59, 0, tzinfo=datetime.timezone.utc)
         self.assertEqual(writethetime.get_time_as_words(dt), "One Min To Midnight")
 
     def testMidnightandOneMin(self):
-        dt = datetime.datetime(2016, 2, 28, 0, 1, 0)
+        dt = datetime.datetime(2016, 2, 28, 0, 1, 0, tzinfo=datetime.timezone.utc)
         self.assertEqual(writethetime.get_time_as_words(dt), "One Min Past Midnight")
 
     def testVeryLongString(self):
-        dt = datetime.datetime(2016, 2, 28, 11, 27, 0)
+        dt = datetime.datetime(2016, 2, 28, 11, 27, 0, tzinfo=datetime.timezone.utc)
         self.assertEqual(
             writethetime.get_time_as_words(dt), "Twenty-seven Past Eleven AM"
         )
@@ -112,9 +110,11 @@ class Testwrap_16_x_2(unittest.TestCase):
         self.assertEqual(expected, result)
 
     def testVerifyAllTimes(self):
-        for hour in range(0, 24):
-            for minute in range(0, 60):
-                dt = datetime.datetime(2016, 2, 28, hour, minute, 0)
+        for hour in range(24):
+            for minute in range(60):
+                dt = datetime.datetime(
+                    2016, 2, 28, hour, minute, 0, tzinfo=datetime.timezone.utc
+                )
                 wtt = writethetime.get_time_as_words(dt)
                 wrap = lcdtextprocessing.wrap_16_x_2(wtt)
                 if "DEBUG" in os.environ:

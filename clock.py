@@ -5,18 +5,22 @@ Clock - main program for managing the Clock Display via the PiFaceCAD library.
 """
 
 import datetime
-import time
 import socket
+import time
+
+from zoneinfo import ZoneInfo
 
 try:
     import pifacecad  # pylint: disable=E0401
 except ImportError:
     import lib.pifacecad_mock as pifacecad  # pylint: disable=R0402
 
-import lib.writethetime as writethetime  # pylint: disable=R0402
-import lib.writethedate as writethedate  # pylint: disable=R0402
-import lib.lcdtextprocessing as lcdtextprocessing  # pylint: disable=R0402
-import lib.writetheweather as writetheweather  # pylint: disable=R0402
+from lib import (  # pylint: disable=R0402
+    lcdtextprocessing,
+    writethedate,
+    writethetime,
+    writetheweather,
+)
 
 cad = pifacecad.PiFaceCAD()
 lcd = cad.lcd
@@ -79,9 +83,11 @@ def main():
     # initialise the state variable.
     old_text = ""
 
+    timezone = ZoneInfo("Europe/London")
+
     # loop forever
     while True:
-        date_now = datetime.datetime.now()
+        date_now = datetime.datetime.now(timezone)
 
         if date_now.second < 9:
             # show time
