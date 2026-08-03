@@ -1,4 +1,4 @@
-appdirs==1.4.0
+appdirs==1.4.4
 beautifulsoup4==4.14.3
 packaging>=23.2
 py==1.11.0
