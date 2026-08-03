@@ -42,8 +42,6 @@ def get_am_pm_indicator(hour, minute):
         return ""
     if minute > 30:
         hour = hour + 1
-    if hour > 23:
-        return " AM"
     if hour > 11:
         return " PM"
     return " AM"
